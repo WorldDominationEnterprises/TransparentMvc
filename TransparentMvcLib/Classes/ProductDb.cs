@@ -51,22 +51,8 @@ namespace TransparentMvcLib.Classes
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@Description", Value = p.Description, Direction = ParameterDirection.Input, SqlDbType = SqlDbType.NVarChar });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@Name", Value = p.Name, Direction = ParameterDirection.Input, SqlDbType = SqlDbType.NVarChar });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@Name", Value = p.Name, Direction = ParameterDirection.Input, SqlDbType = SqlDbType.NVarChar });
-                    using (var rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
-                    {
-                        while (rdr.Read())
-                        {
-                            lst.Add(new Product
-                            {
-                                Id = (int)rdr["id"]
-                                ,
-                                Name = rdr["name"].ToString()
-                                ,
-                                Description = rdr["Description"].ToString()
-                                //,ManufacturerId = (int)rdr["ManufacturerId"]
-                            });
-                        }
-                    }
 
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
